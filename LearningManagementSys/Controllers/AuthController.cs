@@ -31,19 +31,8 @@ namespace LearningManagementSys.Controllers
 
             return Ok(new { Message = "Registration successful." });
         }
-        // [HttpPost("register")]
-        // public async Task<IActionResult> Register([FromBody] AppUser user)
-        // {
-        //     if (await _cosmosDbService.GetUserByEmailAsync(user.Email) != null)
-        //         return BadRequest("Email already registered.");
-
-        //         user.VerifyUser(); // Directly mark user as verified
-        //         await _cosmosDbService.AddUserAsync(user);
-
-        //     return Ok(new { Message = "Registration successful." });
-        // }
-
-        [HttpPost("login")]
+       
+       [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
                 var user = await _cosmosDbService.GetUserByEmailAsync(request.Email);
@@ -52,7 +41,7 @@ namespace LearningManagementSys.Controllers
 
                 string token = _tokenService.GenerateToken(user.Email); // Direct JWT token return
 
-            return Ok(new { Token = token, Message = "Login successful." });
+            return Ok(new { Message = "Login successful." });
         }
 
         [HttpPost("forgot-password")]
