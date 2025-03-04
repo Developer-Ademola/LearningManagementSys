@@ -20,17 +20,28 @@ namespace LearningManagementSys.Controllers
             _tokenService = tokenService;
         }
 
-        [HttpPost("register")]
+         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] AppUser user)
         {
             if (await _cosmosDbService.GetUserByEmailAsync(user.Email) != null)
                 return BadRequest("Email already registered.");
 
-                user.VerifyUser(); // Directly mark user as verified
+           user.VerifyUser(); // Directly mark user as verified
                 await _cosmosDbService.AddUserAsync(user);
 
             return Ok(new { Message = "Registration successful." });
         }
+        // [HttpPost("register")]
+        // public async Task<IActionResult> Register([FromBody] AppUser user)
+        // {
+        //     if (await _cosmosDbService.GetUserByEmailAsync(user.Email) != null)
+        //         return BadRequest("Email already registered.");
+
+        //         user.VerifyUser(); // Directly mark user as verified
+        //         await _cosmosDbService.AddUserAsync(user);
+
+        //     return Ok(new { Message = "Registration successful." });
+        // }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
