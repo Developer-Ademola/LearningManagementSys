@@ -39,9 +39,7 @@ public async Task<IActionResult> Login([FromBody] LoginRequest request)
     if (user == null || user.PasswordHash != request.Password)
         return Unauthorized("Invalid credentials.");
 
-    string token = _tokenService.GenerateToken(user.Email); // Direct JWT token return
-
-    return Ok(new { Token = token, Message = "Login successful." });
+        return Ok(new { Message = "Login successful." });
 }
         [HttpPost("forgot-password")]
         public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequest request)
