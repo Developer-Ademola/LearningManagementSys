@@ -20,7 +20,7 @@ namespace LearningManagementSys.Controllers
             _tokenService = tokenService;
         }
 
-         [HttpPost("register")]
+        [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] AppUser user)
         {
             if (await _cosmosDbService.GetUserByEmailAsync(user.Email) != null)
@@ -32,15 +32,15 @@ namespace LearningManagementSys.Controllers
             return Ok(new { Message = "Registration successful." });
         }
        
-       [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginRequest request)
-        {
-                var user = await _cosmosDbService.GetUserByEmailAsync(request.Email);
-                    if (user == null || user.PasswordHash != request.Password)
-                        return Unauthorized("Invalid credentials.");
+       // [HttpPost("login")]
+       //  public async Task<IActionResult> Login([FromBody] LoginRequest request)
+       //  {
+       //          var user = await _cosmosDbService.GetUserByEmailAsync(request.Email);
+       //              if (user == null || user.PasswordHash != request.Password)
+       //                  return Unauthorized("Invalid credentials.");
 
-            return Ok(new { Message = "Login successful." });
-        }
+       //      return Ok(new { Message = "Login successful." });
+       //  }
 
         [HttpPost("forgot-password")]
         public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequest request)
